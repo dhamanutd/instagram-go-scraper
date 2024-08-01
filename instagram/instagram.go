@@ -11,11 +11,11 @@ package instagram
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"strings"
-	"errors"
 )
 
 // GetAccountByUsername try to find account by username.
@@ -288,11 +288,11 @@ func getDataFromURL(url string) ([]byte, error) {
 	}
 
 	if resp.StatusCode != 200 {
-		return nil, errors.New( "statusCode != 200")
+		return nil, errors.New("statusCode != 200")
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	body, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
 	}
